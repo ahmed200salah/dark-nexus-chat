@@ -11,22 +11,40 @@ const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(false);
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+      if (isSignUp) {
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            emailRedirectTo: `${window.location.origin}/chat`,
+          },
+        });
 
-      if (error) {
-        if (error.message.includes('Invalid login credentials')) {
-          toast.error('Invalid email or password');
-        } else {
+        if (error) {
           toast.error(error.message);
+        } else {
+          toast.success('Account created! You can now sign in.');
+          setIsSignUp(false);
+        }
+      } else {
+        const { error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+
+        if (error) {
+          if (error.message.includes('Invalid login credentials')) {
+            toast.error('Invalid email or password');
+          } else {
+            toast.error(error.message);
+          }
         }
       }
     } catch (error) {
@@ -45,13 +63,15 @@ const Auth = () => {
               <MessageSquare className="h-8 w-8 text-primary" />
             </div>
           </div>
-          <CardTitle className="text-3xl font-bold text-foreground">Welcome Back</CardTitle>
+          <CardTitle className="text-3xl font-bold text-foreground">
+            {isSignUp ? 'Create Account' : 'Welcome Back'}
+          </CardTitle>
           <CardDescription className="text-muted-foreground">
-            Sign in to continue your AI conversations
+            {isSignUp ? 'Sign up to start your AI conversations' : 'Sign in to continue your AI conversations'}
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleLogin} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email" className="text-foreground">Email</Label>
               <Input
@@ -81,9 +101,19 @@ const Auth = () => {
               className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all"
               disabled={isLoading}
             >
-              {isLoading ? 'Signing in...' : 'Sign In'}
+              {isLoading ? (isSignUp ? 'Creating account...' : 'Signing in...') : (isSignUp ? 'Sign Up' : 'Sign In')}
             </Button>
           </form>
+          
+          <div className="mt-4 text-center">
+            <button
+              type="button"
+              onClick={() => setIsSignUp(!isSignUp)}
+              className="text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              {isSignUp ? 'Already have an account? Sign in' : "Don't have an account? Sign up"}
+            </button>
+          </div>
         </CardContent>
       </Card>
     </div>
