@@ -35,8 +35,8 @@ const ChatInput = ({ onSend, disabled }: ChatInputProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="border-t border-border bg-card p-4">
-      <div className="flex gap-3 items-end max-w-5xl mx-auto">
+    <form onSubmit={handleSubmit} className="border-t border-border bg-card p-6 shadow-lg">
+      <div className="flex gap-4 items-end max-w-4xl mx-auto">
         <Textarea
           ref={textareaRef}
           value={message}
@@ -44,14 +44,14 @@ const ChatInput = ({ onSend, disabled }: ChatInputProps) => {
           onKeyDown={handleKeyDown}
           placeholder="Type your message... (Shift+Enter for new line)"
           disabled={disabled}
-          className="min-h-[60px] max-h-[200px] resize-none bg-background border-border focus:border-primary transition-colors"
+          className="min-h-[56px] max-h-[200px] resize-none bg-background/50 border-border focus:border-primary focus:bg-background transition-all rounded-xl"
           rows={1}
         />
         <Button
           type="submit"
           disabled={!message.trim() || disabled}
           size="icon"
-          className="h-[60px] w-[60px] shrink-0 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all"
+          className="h-[56px] w-[56px] shrink-0 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl hover:scale-105 transition-all rounded-xl"
         >
           <Send className="h-5 w-5" />
         </Button>

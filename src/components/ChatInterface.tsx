@@ -60,14 +60,6 @@ const ChatInterface = () => {
   };
 
   const handleSendMessage = async (content: string) => {
-    const userMessage: Message = {
-      id: uuidv4(),
-      type: 'human',
-      content,
-      created_at: new Date().toISOString(),
-    };
-
-    setMessages((prev) => [...prev, userMessage]);
     setIsLoading(true);
 
     const agentRequest: AgentRequest = {
@@ -145,21 +137,35 @@ const ChatInterface = () => {
 
       <div className="flex-1 flex flex-col h-screen">
         {/* Header */}
-        <div className="border-b border-border bg-card px-6 py-4">
-          <h1 className="text-xl font-semibold text-foreground">
-            {messages.length > 0 ? messages[0]?.content.slice(0, 50) + '...' : 'New Chat'}
-          </h1>
+        <div className="border-b border-border bg-card px-6 py-5 shadow-sm">
+          <div className="max-w-5xl mx-auto">
+            <h1 className="text-2xl font-bold text-foreground">
+              {messages.length > 0 ? messages[0]?.content.slice(0, 60) + '...' : 'New Conversation'}
+            </h1>
+            <p className="text-sm text-muted-foreground mt-1">AI Legal Assistant</p>
+          </div>
         </div>
 
         {/* Messages */}
-        <ScrollArea className="flex-1 px-6 py-6">
-          <div className="max-w-5xl mx-auto">
+        <ScrollArea className="flex-1 px-6 py-8">
+          <div className="max-w-4xl mx-auto space-y-6">
+            {messages.length === 0 && !isLoading && (
+              <div className="flex flex-col items-center justify-center h-[60vh] text-center">
+                <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+                  <svg className="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                  </svg>
+                </div>
+                <h2 className="text-2xl font-semibold text-foreground mb-2">Start a conversation</h2>
+                <p className="text-muted-foreground max-w-md">Ask me anything about legal matters and I'll provide detailed assistance.</p>
+              </div>
+            )}
             {messages.map((message) => (
               <MessageBubble key={message.id} message={message} />
             ))}
             {isLoading && (
-              <div className="flex justify-start mb-4">
-                <div className="bg-card border border-border rounded-2xl">
+              <div className="flex justify-start animate-slide-in">
+                <div className="bg-card border border-border rounded-2xl shadow-sm">
                   <LoadingIndicator />
                 </div>
               </div>

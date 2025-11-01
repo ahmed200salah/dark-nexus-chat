@@ -9,9 +9,9 @@ const MessageBubble = ({ message }: MessageBubbleProps) => {
   const isUser = message.type === 'human';
 
   return (
-    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4 animate-slide-in`}>
+    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} animate-slide-in`}>
       <div
-        className={`max-w-[80%] rounded-2xl px-6 py-4 ${
+        className={`max-w-[85%] rounded-2xl px-5 py-4 shadow-sm ${
           isUser
             ? 'bg-secondary text-foreground'
             : 'bg-card text-foreground border border-border'

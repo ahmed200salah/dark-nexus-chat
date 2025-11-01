@@ -45,6 +45,11 @@ All colors MUST be HSL.
     --ai-bubble: 221 49% 14%; /* Same as chat bg */
     --glow-primary: 217 91% 60% / 0.3;
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Enhanced shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.2);
 
     --sidebar-background: 221 49% 14%;
     --sidebar-foreground: 218 15% 84%;
