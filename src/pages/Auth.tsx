@@ -60,14 +60,18 @@ const Auth = () => {
         <CardHeader className="space-y-4 text-center">
           <div className="flex justify-center">
             <div className="h-16 w-16 bg-primary/10 rounded-2xl flex items-center justify-center">
-              <MessageSquare className="h-8 w-8 text-primary" />
+              <svg className="w-9 h-9 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+              </svg>
             </div>
           </div>
           <CardTitle className="text-3xl font-bold text-foreground">
-            {isSignUp ? 'Create Account' : 'Welcome Back'}
+            {isSignUp ? 'Create Account' : 'مرحباً بك'}
           </CardTitle>
-          <CardDescription className="text-muted-foreground">
-            {isSignUp ? 'Sign up to start your AI conversations' : 'Sign in to continue your AI conversations'}
+          <CardDescription className="text-muted-foreground text-base">
+            {isSignUp 
+              ? 'Access Saudi Bankruptcy Law AI Assistant' 
+              : 'نظام الإفلاس السعودي - مساعد قانوني ذكي'}
           </CardDescription>
         </CardHeader>
         <CardContent>

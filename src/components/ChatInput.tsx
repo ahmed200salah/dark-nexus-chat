@@ -42,7 +42,7 @@ const ChatInput = ({ onSend, disabled }: ChatInputProps) => {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Type your message... (Shift+Enter for new line)"
+          placeholder="اكتب سؤالك هنا... | Type your legal question here..."
           disabled={disabled}
           className="min-h-[56px] max-h-[200px] resize-none bg-background/50 border-border focus:border-primary focus:bg-background transition-all rounded-xl"
           rows={1}

@@ -69,7 +69,18 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground font-sans;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Inter', 'Cairo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  /* RTL Support for Arabic */
+  [dir="rtl"] {
+    direction: rtl;
+  }
+
+  /* Improve Arabic font rendering */
+  *:lang(ar) {
+    font-family: 'Cairo', 'Inter', sans-serif;
+    letter-spacing: 0;
   }
 
   /* Custom scrollbar */
