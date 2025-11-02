@@ -1,4 +1,5 @@
 import ReactMarkdown from 'react-markdown';
+import { motion } from 'framer-motion';
 import { Message } from '@/types/chat';
 
 interface MessageBubbleProps {
@@ -9,11 +10,18 @@ const MessageBubble = ({ message }: MessageBubbleProps) => {
   const isUser = message.type === 'human';
 
   return (
-    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} animate-slide-in`}>
-      <div
-        className={`max-w-[85%] rounded-2xl px-5 py-4 shadow-sm ${
+    <motion.div 
+      initial={{ opacity: 0, y: 20, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}
+    >
+      <motion.div
+        whileHover={{ scale: 1.01 }}
+        transition={{ duration: 0.2 }}
+        className={`max-w-[85%] rounded-2xl px-5 py-4 shadow-lg backdrop-blur-sm ${
           isUser
-            ? 'bg-secondary text-foreground'
+            ? 'bg-secondary text-foreground border border-primary/20'
             : 'bg-card text-foreground border border-border'
         }`}
       >
@@ -53,8 +61,8 @@ const MessageBubble = ({ message }: MessageBubbleProps) => {
             </ReactMarkdown>
           </div>
         )}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

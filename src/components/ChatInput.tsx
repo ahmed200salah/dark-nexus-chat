@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Send } from 'lucide-react';
@@ -35,28 +36,50 @@ const ChatInput = ({ onSend, disabled }: ChatInputProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="border-t border-border bg-card p-6 shadow-lg">
+    <motion.form 
+      initial={{ y: 50, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      onSubmit={handleSubmit} 
+      className="border-t border-border bg-card/95 backdrop-blur-md p-6 shadow-2xl"
+    >
       <div className="flex gap-4 items-end max-w-4xl mx-auto">
-        <Textarea
-          ref={textareaRef}
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="اكتب سؤالك هنا... | Type your legal question here..."
-          disabled={disabled}
-          className="min-h-[56px] max-h-[200px] resize-none bg-background/50 border-border focus:border-primary focus:bg-background transition-all rounded-xl"
-          rows={1}
-        />
-        <Button
-          type="submit"
-          disabled={!message.trim() || disabled}
-          size="icon"
-          className="h-[56px] w-[56px] shrink-0 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl hover:scale-105 transition-all rounded-xl"
+        <motion.div 
+          className="flex-1"
+          whileFocus={{ scale: 1.01 }}
+          transition={{ duration: 0.2 }}
         >
-          <Send className="h-5 w-5" />
-        </Button>
+          <Textarea
+            ref={textareaRef}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="اكتب سؤالك هنا... | Type your legal question here..."
+            disabled={disabled}
+            className="min-h-[56px] max-h-[200px] resize-none bg-background/50 border-border focus:border-primary focus:bg-background focus:shadow-lg transition-all rounded-xl"
+            rows={1}
+          />
+        </motion.div>
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Button
+            type="submit"
+            disabled={!message.trim() || disabled}
+            size="icon"
+            className="h-[56px] w-[56px] shrink-0 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl rounded-xl"
+          >
+            <motion.div
+              animate={message.trim() ? { rotate: [0, -10, 10, 0] } : {}}
+              transition={{ duration: 0.5, repeat: message.trim() ? Infinity : 0, repeatDelay: 2 }}
+            >
+              <Send className="h-5 w-5" />
+            </motion.div>
+          </Button>
+        </motion.div>
       </div>
-    </form>
+    </motion.form>
   );
 };
 

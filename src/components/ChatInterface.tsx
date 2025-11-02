@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { v4 as uuidv4 } from 'uuid';
 import { supabase } from '@/lib/supabase';
 import { Message, AgentRequest } from '@/types/chat';
@@ -159,31 +160,64 @@ const ChatInterface = () => {
         <ScrollArea className="flex-1 px-6 py-8">
           <div className="max-w-4xl mx-auto space-y-6">
             {messages.length === 0 && !isLoading && (
-              <div className="flex flex-col items-center justify-center h-[60vh] text-center px-4">
-                <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center mb-6 shadow-lg">
+              <motion.div 
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="flex flex-col items-center justify-center h-[60vh] text-center px-4"
+              >
+                <motion.div 
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ delay: 0.2, duration: 0.4 }}
+                  whileHover={{ rotate: 360, scale: 1.05 }}
+                  className="w-24 h-24 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center mb-6 shadow-lg"
+                >
                   <svg className="w-12 h-12 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
                   </svg>
-                </div>
-                <h2 className="text-3xl font-bold text-foreground mb-3 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                </motion.div>
+                <motion.h2 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.4 }}
+                  className="text-3xl font-bold text-foreground mb-3 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
+                >
                   نظام الإفلاس السعودي
-                </h2>
-                <h3 className="text-xl font-semibold text-foreground mb-4">Saudi Bankruptcy Law Assistant</h3>
-                <p className="text-muted-foreground max-w-lg leading-relaxed">
+                </motion.h2>
+                <motion.h3 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, duration: 0.4 }}
+                  className="text-xl font-semibold text-foreground mb-4"
+                >
+                  Saudi Bankruptcy Law Assistant
+                </motion.h3>
+                <motion.p 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5, duration: 0.4 }}
+                  className="text-muted-foreground max-w-lg leading-relaxed"
+                >
                   Ask me anything about Saudi bankruptcy law, procedures, regulations, and legal matters. 
                   I'm here to provide detailed legal guidance in both Arabic and English.
-                </p>
-              </div>
+                </motion.p>
+              </motion.div>
             )}
             {messages.map((message) => (
               <MessageBubble key={message.id} message={message} />
             ))}
             {isLoading && (
-              <div className="flex justify-start animate-slide-in">
-                <div className="bg-card border border-border rounded-2xl shadow-sm">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="flex justify-start"
+              >
+                <div className="bg-card border border-border rounded-2xl shadow-lg backdrop-blur-sm">
                   <LoadingIndicator />
                 </div>
-              </div>
+              </motion.div>
             )}
             <div ref={messagesEndRef} />
           </div>
